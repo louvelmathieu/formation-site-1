@@ -6,4 +6,4 @@ deploy_current:
 	eb deploy --staged
 
 build_aws: ## Build for beanstalk
-	GOARCH=arm64 GOOS=linux $(GO) build -o bin/application cmd/*.go
+	GOARCH=amd64 GOOS=linux $(GO) build -o bin/application cmd/*.go
