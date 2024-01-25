@@ -59,7 +59,7 @@ func main() {
 		w.Write(resp)
 	}).Methods("GET")
 
-	e := http.ListenAndServe(":"+os.Getenv("INTERNAL_PORT"), router)
+	e := http.ListenAndServe(":5000", router)
 	if e != nil {
 		log.Fatal("ListenAndServe: ", e)
 	}
