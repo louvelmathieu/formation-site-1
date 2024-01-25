@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
@@ -35,12 +36,12 @@ func Connect() (*gorm.DB, error) {
 
 func init() {
 
-	//if os.Getenv("ENV") == "" {
-	//	err := godotenv.Load()
-	//	if err != nil {
-	//		log.Fatal("Error loading .env file")
-	//	}
-	//}
+	if os.Getenv("ENV") == "" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+	}
 }
 
 func main() {
@@ -63,7 +64,7 @@ func main() {
 		w.Write(resp)
 	}).Methods("GET")
 
-	e := http.ListenAndServe(":5000", router)
+	e := http.ListenAndServe(":"+os.Getenv("INTERNAL_PORT"), router)
 	if e != nil {
 		log.Fatal("ListenAndServe: ", e)
 	}
